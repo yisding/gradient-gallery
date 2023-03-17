@@ -28,7 +28,6 @@ export default function Home() {
     <>
       <Head>
         <title>Gradient Gallery</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <main>
         <h1 className="my-8 text-center text-4xl font-bold">
