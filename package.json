@@ -20,7 +20,7 @@
     "react-dom": "18.2.0",
     "react-photo-album": "^2.0.1",
     "typescript": "4.9.5",
-    "yet-another-react-lightbox": "^2.4.3"
+    "yet-another-react-lightbox": "^2.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

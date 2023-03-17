@@ -1,15 +1,28 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useState } from "react";
 import PhotoAlbum from "react-photo-album";
+import Lightbox from "yet-another-react-lightbox";
+import Captions from "yet-another-react-lightbox/plugins/captions";
 
-import Nav from "../components/nav";
-import Sort from "../components/sort";
+import Nav from "@/components/nav";
+import Sort from "@/components/sort";
+import AlbumImageWrapper from "../components/AlbumImageWrapper";
+import LightboxImageWrapper from "@/components/LightboxImageWrapper";
 
 import images, { ImageData } from "../data/images";
 
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/captions.css";
+
 export default function Home() {
   const [sortField, setSortField] = useState<keyof ImageData | null>(null);
+  const [index, setIndex] = useState(-1);
+
+  const sortedImages = sortField
+    ? images.sort((a, b) =>
+        a[sortField].toString().localeCompare(b[sortField].toString())
+      )
+    : images;
 
   return (
     <>
@@ -23,16 +36,22 @@ export default function Home() {
         </h1>
         <Nav current="Home" />
         <Sort setSortField={setSortField} />
-        {/* A photo album with 3 photos. */}
         <PhotoAlbum
           layout="rows"
-          photos={
-            sortField
-              ? images.sort((a, b) =>
-                  a[sortField].toString().localeCompare(b[sortField].toString())
-                )
-              : images
-          }
+          photos={sortedImages}
+          renderPhoto={AlbumImageWrapper}
+          onClick={({ index }) => {
+            setIndex(index);
+          }}
+        />
+
+        <Lightbox
+          open={index >= 0}
+          index={index}
+          close={() => setIndex(-1)}
+          slides={sortedImages}
+          render={{ slide: LightboxImageWrapper }}
+          plugins={[Captions]}
         />
       </main>
     </>
