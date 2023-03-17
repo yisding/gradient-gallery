@@ -13,10 +13,6 @@ const links = [
     title: "Contact",
     href: "/contact",
   },
-  {
-    title: "Login",
-    href: "/login",
-  },
 ];
 
 const Nav = (props: { current: string }) => {
